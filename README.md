@@ -1,53 +1,179 @@
-# webproject
+# WebProject - Full-Stack Student Management System
 
 ## Overview
 
-This is an ASP.NET Core Web API project that manages Students, Courses, Enrollments, and Instructors via REST API endpoints. It uses Entity Framework Core for SQL Server persistence and JWT-based authentication.
+This is a full-stack web application for managing students, courses, enrollments, and instructors. It consists of:
+
+- **Backend**: ASP.NET Core Web API with Entity Framework Core and SQL Server
+- **Frontend**: React application with routing, forms, and API integration
+
+The application provides RESTful API endpoints for CRUD operations on students, courses, enrollments, and instructors, secured with JWT authentication. The React frontend offers a user interface for interacting with the data.
 
 ## Technologies Used
 
-- .NET 9 (ASP.NET Core)
-  - Web API framework for building RESTful services.
-- Entity Framework Core
-  - ORM to manage SQL Server database models and migrations.
-- SQL Server
-  - Relational database used through the `DefaultConnection` string in `appsettings.json`.
-- JWT (JSON Web Tokens)
-  - Token-based stateless authentication scheme that secures API endpoints.
-- Swagger / OpenAPI
-  - API documentation and interactive testing UI.
-- ASP.NET Core Dependency Injection
-  - Scoped services for modular business logic (`StudentService`, `CourseService`, `EnrollmentService`).
+### Backend
+- .NET 9 (ASP.NET Core Web API)
+- Entity Framework Core (ORM for SQL Server)
+- SQL Server (database)
+- JWT (authentication)
+- Swagger/OpenAPI (API documentation)
+
+### Frontend
+- React 18
+- React Router DOM (routing)
+- Axios (HTTP client)
+- Vite (build tool)
+- Express.js (development proxy server)
 
 ## Prerequisites
 
-- Windows or any OS supported by .NET 9
-- .NET 9 SDK installed
-- SQL Server instance accessible (localdb or remote)
-- Optional: Visual Studio 2022/2023, VS Code
+- .NET 9 SDK
+- Node.js (v16 or higher)
+- SQL Server instance (localdb or remote)
+- npm or yarn
 
-## Setup
+## Setup Instructions
 
-1. Clone this repository or open it in your IDE.
-2. Configure connection string in `appsettings.json`:
+### Backend Setup
 
-```json
-"ConnectionStrings": {
-  "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=WebProjectDb;Trusted_Connection=True;MultipleActiveResultSets=true"
-}
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd webproject
+   ```
+
+2. **Configure database connection** in `appsettings.json`:
+   ```json
+   "ConnectionStrings": {
+     "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=WebProjectDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+   }
+   ```
+
+3. **Configure JWT settings** in `appsettings.json`:
+   ```json
+   "Jwt": {
+     "Issuer": "your-issuer",
+     "Audience": "your-audience",
+     "Key": "your-secret-key-should-be-long"
+   }
+   ```
+
+4. **Apply database migrations**:
+   ```bash
+   dotnet ef database update
+   ```
+
+5. **Run the backend**:
+   ```bash
+   dotnet run
+   ```
+   The API will be available at `https://localhost:5001` (or as shown in console).
+
+### Frontend Setup
+
+1. **Navigate to frontend directory**:
+   ```bash
+   cd zzz
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
+   The frontend will be available at `http://localhost:5173`.
+
+### Running Both Together
+
+To run both backend and frontend simultaneously:
+```bash
+cd zzz
+npm start
+```
+This uses concurrently to start both the Express proxy server and Vite dev server.
+
+## API Endpoints
+
+### Authentication
+- `POST /api/Auth/login` - Login with credentials, returns JWT token
+
+### Students
+- `GET /api/Student` - List all students
+- `GET /api/Student/{id}` - Get student by ID
+- `POST /api/Student` - Create new student
+- `PUT /api/Student/{id}` - Update student
+- `DELETE /api/Student/{id}` - Delete student
+
+### Courses
+- `GET /api/Course` - List all courses
+- `GET /api/Course/{id}` - Get course by ID
+- `POST /api/Course` - Create new course
+- `PUT /api/Course/{id}` - Update course
+- `DELETE /api/Course/{id}` - Delete course
+
+### Enrollments
+- `GET /api/Enrollment` - List all enrollments
+- `GET /api/Enrollment/{id}` - Get enrollment by ID
+- `POST /api/Enrollment` - Create new enrollment
+- `PUT /api/Enrollment/{id}` - Update enrollment
+- `DELETE /api/Enrollment/{id}` - Delete enrollment
+
+### Instructors
+- `GET /api/Instructor` - List all instructors
+- `GET /api/Instructor/{id}` - Get instructor by ID
+- `POST /api/Instructor` - Create new instructor
+- `PUT /api/Instructor/{id}` - Update instructor
+- `DELETE /api/Instructor/{id}` - Delete instructor
+
+## Database Migrations
+
+Included migrations:
+- `20260331153705_Initial` - Initial schema
+- `20260331173341_AddInstructorEntities` - Instructor entities and relationships
+
+## Project Structure
+
+```
+webproject/
+├── Controller/          # API controllers
+├── Data/               # DbContext and models
+├── DTOs/               # Data transfer objects
+├── Migrations/         # EF Core migrations
+├── Models/             # Entity models
+├── Services/           # Business logic services
+├── zzz/                # React frontend
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   └── services/
+│   ├── backend/        # Express proxy server
+│   └── package.json
+├── appsettings.json
+├── Program.cs
+└── webproject.csproj
 ```
 
-3. Configure JWT settings in `appsettings.json`:
+## Usage
 
-```json
-"Jwt": {
-  "Issuer": "your-issuer",
-  "Audience": "your-audience",
-  "Key": "your-secret-key-should-be-long"
-}
-```
+1. Start the backend API
+2. Start the frontend development server
+3. Access the application at `http://localhost:5173`
+4. Use the navigation to manage students, courses, enrollments, and instructors
 
-4. Apply database migrations (from repository root):
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
 
 ```powershell
 dotnet ef database update
