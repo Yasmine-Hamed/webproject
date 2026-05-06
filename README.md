@@ -96,38 +96,46 @@ npm start
 ```
 This uses concurrently to start both the Express proxy server and Vite dev server.
 
-## API Endpoints
+## API Routes
+
+The application uses JWT-based authentication. All endpoints except login require a valid JWT token in the Authorization header.
 
 ### Authentication
 - `POST /api/Auth/login` - Login with credentials, returns JWT token
+  - Body: `{ "username": "string", "password": "string" }`
+  - Response: `{ "token": "jwt-token-string" }`
 
 ### Students
-- `GET /api/Student` - List all students
-- `GET /api/Student/{id}` - Get student by ID
-- `POST /api/Student` - Create new student
-- `PUT /api/Student/{id}` - Update student
-- `DELETE /api/Student/{id}` - Delete student
+- `GET /api/Student` - Get all students (Authenticated users)
+- `GET /api/Student/{id}` - Get student by ID (Authenticated users)
+- `POST /api/Student` - Create new student (Admin only)
+  - Body: `{ "firstName": "string", "lastName": "string", "email": "string" }`
+- `PUT /api/Student/{id}` - Update student (Admin, Instructor)
+  - Body: `{ "firstName": "string", "lastName": "string", "email": "string" }`
 
 ### Courses
-- `GET /api/Course` - List all courses
-- `GET /api/Course/{id}` - Get course by ID
-- `POST /api/Course` - Create new course
-- `PUT /api/Course/{id}` - Update course
-- `DELETE /api/Course/{id}` - Delete course
+- `GET /api/Course` - Get all courses (Authenticated users)
+- `GET /api/Course/{id}` - Get course by ID (Authenticated users)
+- `POST /api/Course` - Create new course (Admin only)
+  - Body: `{ "title": "string", "description": "string", "instructorId": number }`
+- `PUT /api/Course/{id}` - Update course (Admin only)
+  - Body: `{ "title": "string", "description": "string", "instructorId": number }`
+- `DELETE /api/Course/{id}` - Delete course (Admin only)
 
 ### Enrollments
-- `GET /api/Enrollment` - List all enrollments
-- `GET /api/Enrollment/{id}` - Get enrollment by ID
-- `POST /api/Enrollment` - Create new enrollment
-- `PUT /api/Enrollment/{id}` - Update enrollment
-- `DELETE /api/Enrollment/{id}` - Delete enrollment
+- `GET /api/Enrollment/{studentId}` - Get courses for a student (Authenticated users)
+- `POST /api/Enrollment` - Enroll student in course (Admin, Instructor)
+  - Body: `{ "studentId": number, "courseId": number }`
+- `DELETE /api/Enrollment/{studentId}/{courseId}` - Remove student enrollment (Admin, Instructor)
 
 ### Instructors
-- `GET /api/Instructor` - List all instructors
-- `GET /api/Instructor/{id}` - Get instructor by ID
-- `POST /api/Instructor` - Create new instructor
-- `PUT /api/Instructor/{id}` - Update instructor
-- `DELETE /api/Instructor/{id}` - Delete instructor
+- `GET /api/Instructor` - Get all instructors (Authenticated users)
+- `GET /api/Instructor/{id}` - Get instructor by ID (Authenticated users)
+- `POST /api/Instructor` - Create new instructor (Admin only)
+  - Body: `{ "firstName": "string", "lastName": "string", "email": "string", "department": "string" }`
+- `PUT /api/Instructor/{id}` - Update instructor (Admin only)
+  - Body: `{ "firstName": "string", "lastName": "string", "email": "string", "department": "string" }`
+- `DELETE /api/Instructor/{id}` - Delete instructor (Admin only)
 
 ## Database Migrations
 
