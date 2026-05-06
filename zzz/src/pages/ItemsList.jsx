@@ -10,11 +10,11 @@ function ItemsList() {
   const loadItems = async () => {
     try {
       setLoading(true)
-      const response = await api.get('/items')
+      const response = await api.get('/Student')
       setItems(response.data)
       setError('')
     } catch (err) {
-      setError('Could not load items. Please try again.')
+      setError('Could not load students. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -25,35 +25,35 @@ function ItemsList() {
   }, [])
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Delete this item?')) return
+    if (!window.confirm('Delete this student?')) return
     try {
-      await api.delete(`/items/${id}`)
+      await api.delete(`/Student/${id}`)
       setItems((prev) => prev.filter((item) => item.id !== id))
     } catch (err) {
-      setError('Failed to delete item.')
+      setError('Failed to delete student.')
     }
   }
 
   return (
     <section className="page-content">
       <div className="page-header">
-        <h2>Items</h2>
+        <h2>Students</h2>
         <Link className="button" to="/items/new">
-          Add New Item
+          Add New Student
         </Link>
       </div>
 
-      {loading && <p>Loading items...</p>}
+      {loading && <p>Loading students...</p>}
       {error && <p className="error-message">{error}</p>}
 
-      {!loading && items.length === 0 && <p>No items found.</p>}
+      {!loading && items.length === 0 && <p>No students found.</p>}
 
       <ul className="item-list">
         {items.map((item) => (
           <li key={item.id} className="item-card">
             <div>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
+              <h3>{item.firstName} {item.lastName}</h3>
+              <p>{item.email}</p>
             </div>
             <div className="item-actions">
               <Link className="link-button" to={`/items/${item.id}`}>

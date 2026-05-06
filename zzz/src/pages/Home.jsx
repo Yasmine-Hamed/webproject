@@ -1,14 +1,23 @@
 function Home() {
   return (
     <section className="page-content">
-      <h1>Welcome to ZZZ React App</h1>
+      <h1>Welcome to Student Management System</h1>
       <p>
-        This sample application demonstrates React routing, backend API integration,
-        forms, and item management using Axios.
+        This application allows you to manage students, courses, enrollments, and instructors
+        through a modern web interface connected to an ASP.NET Core backend API.
       </p>
       <p>
-        Use the navigation links to view all items, add a new item, or edit an existing item.
+        Please login to access the student management features.
       </p>
+      <div style={{ marginTop: '20px', fontSize: '14px', color: '#666' }}>
+        <p><strong>Features:</strong></p>
+        <ul>
+          <li>View all students</li>
+          <li>Add new students</li>
+          <li>Edit student information</li>
+          <li>JWT-based authentication</li>
+        </ul>
+      </div>
     </section>
   )
 }

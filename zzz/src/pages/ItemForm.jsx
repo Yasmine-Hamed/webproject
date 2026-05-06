@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import api from '../services/api.js'
 
 function ItemForm() {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
@@ -17,13 +18,14 @@ function ItemForm() {
     setError('')
 
     try {
-      await api.post('/items', { title, description })
-      setMessage('Item added successfully.')
-      setTitle('')
-      setDescription('')
+      await api.post('/Student', { firstName, lastName, email })
+      setMessage('Student added successfully.')
+      setFirstName('')
+      setLastName('')
+      setEmail('')
       navigate('/items')
     } catch (err) {
-      setError('Could not add item. Please check the fields and try again.')
+      setError('Could not add student. Please check the fields and try again.')
     } finally {
       setLoading(false)
     }
@@ -31,32 +33,44 @@ function ItemForm() {
 
   return (
     <section className="page-content">
-      <h2>Add New Item</h2>
+      <h2>Add New Student</h2>
       <form className="item-form" onSubmit={handleSubmit}>
         <label>
-          Title
+          First Name
           <input
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
             required
-            placeholder="Enter item title"
+            placeholder="Enter first name"
           />
         </label>
 
         <label>
-          Description
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+          Last Name
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
             required
-            placeholder="Enter item description"
+            placeholder="Enter last name"
+          />
+        </label>
+
+        <label>
+          Email
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="Enter email address"
           />
         </label>
 
         <div className="form-actions">
           <button className="button" type="submit" disabled={loading}>
-            {loading ? 'Saving...' : 'Save Item'}
+            {loading ? 'Saving...' : 'Save Student'}
           </button>
         </div>
       </form>

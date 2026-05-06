@@ -164,3 +164,6 @@ C:\Users\My Lab\webproject\obj\Debug\net9.0\refint\webproject.dll
 C:\Users\My Lab\webproject\obj\Debug\net9.0\webproject.pdb
 C:\Users\My Lab\webproject\obj\Debug\net9.0\webproject.genruntimeconfig.cache
 C:\Users\My Lab\webproject\obj\Debug\net9.0\ref\webproject.dll
+C:\Users\My Lab\webproject\bin\Debug\net9.0\zzz\package-lock.json
+C:\Users\My Lab\webproject\bin\Debug\net9.0\zzz\package.json
+C:\Users\My Lab\webproject\obj\Debug\net9.0\webproject.sourcelink.json
